@@ -1,0 +1,563 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Italiana", "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-serif: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Pinyon Script", "Dancing Script", cursive;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-cream: var(--cream);
+  --color-blush: var(--blush);
+  --color-rose: var(--rose);
+  --color-cocoa: var(--cocoa);
+  --color-gold: var(--gold);
+  --color-champagne: var(--champagne);
+  --color-aubergine: var(--aubergine);
+
+  --shadow-soft: 0 14px 40px -16px color-mix(in oklab, var(--aubergine) 24%, transparent);
+  --shadow-luxe: 0 40px 90px -28px color-mix(in oklab, var(--aubergine) 38%, transparent);
+  --shadow-glow: 0 0 40px -8px color-mix(in oklab, var(--gold) 50%, transparent);
+
+  --gradient-warm: radial-gradient(ellipse at 20% 0%, color-mix(in oklab, var(--blush) 70%, transparent) 0%, transparent 50%),
+                   radial-gradient(ellipse at 80% 100%, color-mix(in oklab, var(--gold) 30%, transparent) 0%, transparent 60%),
+                   linear-gradient(180deg, var(--cream) 0%, color-mix(in oklab, var(--blush) 40%, var(--cream)) 100%);
+  --gradient-rose: linear-gradient(135deg, var(--blush) 0%, var(--rose) 100%);
+  --gradient-gold: linear-gradient(135deg, var(--gold) 0%, var(--rose) 60%, var(--aubergine) 100%);
+  --gradient-aurora: conic-gradient(from 180deg at 50% 50%,
+    color-mix(in oklab, var(--gold) 40%, transparent),
+    color-mix(in oklab, var(--rose) 50%, transparent),
+    color-mix(in oklab, var(--aubergine) 40%, transparent),
+    color-mix(in oklab, var(--gold) 40%, transparent));
+
+  --animate-fade-in: fade-in 0.6s ease-out both;
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-scale-in: scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 3s linear infinite;
+  --animate-marquee: marquee 35s linear infinite;
+  --animate-aurora: aurora 18s linear infinite;
+  --animate-shine: shine 2.5s linear infinite;
+}
+
+:root {
+  --radius: 1.25rem;
+  /* Rose Gold Patisserie palette — warm ivory, dusty rose, deep aubergine, champagne gold */
+  --cream: oklch(0.978 0.012 60);              /* warm ivory */
+  --blush: oklch(0.92 0.045 25);               /* dusty rose blush */
+  --rose: oklch(0.7 0.13 18);                  /* terracotta rose */
+  --cocoa: oklch(0.28 0.06 20);                /* aubergine-cocoa */
+  --aubergine: oklch(0.24 0.07 15);            /* deep aubergine */
+  --gold: oklch(0.78 0.11 75);                 /* champagne gold */
+  --champagne: oklch(0.88 0.06 80);            /* pale champagne */
+
+  --background: oklch(0.985 0.008 60);
+  --foreground: oklch(0.22 0.05 20);
+
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.99 0.005 60);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.28 0.06 20);              /* aubergine */
+  --primary-foreground: oklch(0.98 0.012 60);
+  --secondary: oklch(0.93 0.035 30);           /* soft blush */
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.95 0.018 50);
+  --muted-foreground: oklch(0.5 0.04 25);
+  --accent: oklch(0.78 0.11 75);               /* gold */
+  --accent-foreground: oklch(0.22 0.05 20);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.98 0.012 60);
+  --border: oklch(0.9 0.025 40);
+  --input: oklch(0.93 0.02 40);
+  --ring: oklch(0.78 0.11 75);
+}
+
+.dark {
+  --cream: oklch(0.22 0.04 20);
+  --blush: oklch(0.36 0.07 20);
+  --rose: oklch(0.65 0.14 18);
+  --cocoa: oklch(0.92 0.03 60);
+  --aubergine: oklch(0.94 0.025 60);
+  --gold: oklch(0.82 0.13 80);
+  --champagne: oklch(0.78 0.09 78);
+
+  --background: oklch(0.16 0.03 20);
+  --foreground: oklch(0.95 0.02 60);
+  --card: oklch(0.21 0.04 20);
+  --card-foreground: oklch(0.95 0.02 60);
+  --popover: oklch(0.21 0.04 20);
+  --popover-foreground: oklch(0.95 0.02 60);
+  --primary: oklch(0.85 0.11 75);
+  --primary-foreground: oklch(0.18 0.04 20);
+  --secondary: oklch(0.3 0.06 20);
+  --secondary-foreground: oklch(0.95 0.02 60);
+  --muted: oklch(0.27 0.04 20);
+  --muted-foreground: oklch(0.72 0.03 50);
+  --accent: oklch(0.82 0.13 80);
+  --accent-foreground: oklch(0.18 0.04 20);
+  --border: oklch(0.34 0.05 20);
+  --input: oklch(0.34 0.05 20);
+  --ring: oklch(0.82 0.13 80);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+    font-weight: 400;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--gold) 50%, transparent);
+    color: var(--aubergine);
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-serif { font-family: var(--font-serif); }
+  .font-script { font-family: var(--font-script); }
+
+  .gradient-warm { background: var(--gradient-warm); }
+  .gradient-rose { background: var(--gradient-rose); }
+  .gradient-gold { background: var(--gradient-gold); }
+  .gradient-aurora { background: var(--gradient-aurora); }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--rose) 60%, var(--aubergine) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-rose {
+    background: linear-gradient(135deg, var(--rose), var(--aubergine));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-luxe { box-shadow: var(--shadow-luxe); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+
+  /* Glassmorphism — premium frosted */
+  .glass {
+    background: color-mix(in oklab, var(--cream) 55%, transparent);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid color-mix(in oklab, var(--cream) 60%, transparent);
+  }
+
+  .glass-strong {
+    background: color-mix(in oklab, var(--cream) 78%, transparent);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid color-mix(in oklab, var(--gold) 18%, transparent);
+  }
+
+  .glass-dark {
+    background: color-mix(in oklab, var(--aubergine) 60%, transparent);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid color-mix(in oklab, var(--gold) 25%, transparent);
+  }
+
+  /* Underline link reveal */
+  .story-link {
+    position: relative;
+    display: inline-block;
+  }
+  .story-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -2px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), var(--rose));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .story-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Shimmer text gold */
+  .shimmer-gold {
+    background: linear-gradient(
+      90deg,
+      var(--aubergine) 0%,
+      var(--gold) 45%,
+      var(--rose) 55%,
+      var(--aubergine) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 4s linear infinite;
+  }
+
+  /* Hover lift */
+  .hover-lift {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-luxe);
+  }
+
+  /* Decorative noise / grain */
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* Animated underline divider */
+  .divider-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* ─── Elegant button system ─────────────────────────────── */
+  /* Shared base — refined typography & motion for every button */
+  .btn-elegant {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.95rem 1.85rem;
+    border-radius: 9999px;
+    overflow: hidden;
+    isolation: isolate;
+    cursor: pointer;
+    transition:
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.4s ease,
+      border-color 0.4s ease;
+    white-space: nowrap;
+  }
+  .btn-elegant:hover { transform: translateY(-2px); }
+  .btn-elegant:active { transform: translateY(0); }
+  .btn-elegant:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+  /* Shine sweep used by primary & gold buttons */
+  .btn-elegant::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 25%,
+      color-mix(in oklab, var(--cream) 65%, transparent) 50%,
+      transparent 75%
+    );
+    transform: translateX(-120%) skewX(-15deg);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .btn-elegant:hover::before { transform: translateX(120%) skewX(-15deg); }
+  .btn-elegant > * { position: relative; z-index: 1; }
+
+  /* PRIMARY — deep aubergine with gold ring + shine */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--aubergine) 0%, var(--cocoa) 100%);
+    color: var(--cream);
+    box-shadow:
+      var(--shadow-luxe),
+      inset 0 1px 0 color-mix(in oklab, var(--gold) 28%, transparent);
+    border: 1px solid color-mix(in oklab, var(--gold) 35%, transparent);
+  }
+  .btn-primary:hover {
+    box-shadow:
+      var(--shadow-luxe),
+      var(--shadow-glow),
+      inset 0 1px 0 color-mix(in oklab, var(--gold) 50%, transparent);
+    border-color: color-mix(in oklab, var(--gold) 70%, transparent);
+  }
+
+  /* GOLD — premium accent with shimmering champagne gradient */
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--champagne) 50%, var(--gold) 100%);
+    background-size: 200% 100%;
+    color: var(--aubergine);
+    box-shadow:
+      var(--shadow-soft),
+      inset 0 1px 0 color-mix(in oklab, var(--cream) 80%, transparent);
+    border: 1px solid color-mix(in oklab, var(--aubergine) 18%, transparent);
+    animation: shimmer 6s linear infinite;
+  }
+  .btn-gold:hover {
+    box-shadow: var(--shadow-luxe), var(--shadow-glow);
+  }
+
+  /* GHOST — frosted glass with gold hairline */
+  .btn-ghost {
+    background: color-mix(in oklab, var(--cream) 55%, transparent);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    color: var(--aubergine);
+    border: 1px solid color-mix(in oklab, var(--aubergine) 18%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in oklab, var(--cream) 90%, transparent);
+  }
+  .btn-ghost:hover {
+    border-color: color-mix(in oklab, var(--gold) 70%, transparent);
+    background: color-mix(in oklab, var(--cream) 80%, transparent);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* OUTLINE — minimal hairline with gold corners on hover */
+  .btn-outline {
+    background: transparent;
+    color: var(--aubergine);
+    border: 1px solid color-mix(in oklab, var(--aubergine) 30%, transparent);
+  }
+  .btn-outline:hover {
+    background: var(--aubergine);
+    color: var(--cream);
+    border-color: var(--aubergine);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Compact size modifier */
+  .btn-sm {
+    padding: 0.62rem 1.2rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+  }
+
+  /* Icon-only round button (cart, menu) */
+  .btn-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 9999px;
+    color: var(--aubergine);
+    background: color-mix(in oklab, var(--cream) 60%, transparent);
+    backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid color-mix(in oklab, var(--aubergine) 16%, transparent);
+    transition:
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s ease,
+      border-color 0.4s ease,
+      background 0.4s ease;
+  }
+  .btn-icon:hover {
+    transform: translateY(-2px) scale(1.04);
+    border-color: color-mix(in oklab, var(--gold) 70%, transparent);
+    box-shadow: var(--shadow-glow);
+    background: var(--cream);
+  }
+
+  /* Nav link — refined small caps with animated dot */
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: 9999px;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--aubergine) 70%, transparent);
+    transition: color 0.4s ease;
+  }
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0.2rem;
+    width: 4px;
+    height: 4px;
+    border-radius: 9999px;
+    background: var(--gold);
+    transform: translate(-50%, 6px) scale(0);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-link:hover {
+    color: var(--aubergine);
+  }
+  .nav-link:hover::before {
+    transform: translate(-50%, 0) scale(1);
+  }
+  .nav-link-active {
+    color: var(--aubergine);
+  }
+
+  /* Filter chip — for menu category buttons */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 1.15rem;
+    border-radius: 9999px;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--aubergine) 75%, transparent);
+    background: color-mix(in oklab, var(--cream) 70%, transparent);
+    border: 1px solid color-mix(in oklab, var(--aubergine) 14%, transparent);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+  }
+  .chip:hover {
+    border-color: color-mix(in oklab, var(--gold) 65%, transparent);
+    transform: translateY(-1px);
+  }
+  .chip-active {
+    background: linear-gradient(135deg, var(--aubergine), var(--cocoa));
+    color: var(--cream);
+    border-color: color-mix(in oklab, var(--gold) 50%, transparent);
+    box-shadow: var(--shadow-soft), inset 0 1px 0 color-mix(in oklab, var(--gold) 30%, transparent);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes aurora {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes shine {
+  0% { transform: translateX(-100%) skewX(-20deg); }
+  100% { transform: translateX(200%) skewX(-20deg); }
+}
+@keyframes ken-burns {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.08) translate(-1.5%, -1%); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+@keyframes sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.3) rotate(180deg); opacity: 0.6; }
+}
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -25px) scale(1.06); }
+  66% { transform: translate(-18px, 18px) scale(0.96); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--gold) 40%, transparent); }
+  50% { box-shadow: 0 0 30px 8px color-mix(in oklab, var(--gold) 20%, transparent); }
+}
+
+.animate-ken-burns { animation: ken-burns 18s ease-in-out infinite; }
+.animate-sparkle { animation: sparkle 2.8s ease-in-out infinite; }
+.animate-blob-drift { animation: blob-drift 14s ease-in-out infinite; }
+.animate-blob-drift-slow { animation: blob-drift 22s ease-in-out infinite reverse; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+.card-lift {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-lift:hover {
+  transform: translateY(-10px) rotate(-0.4deg);
+  box-shadow: 0 30px 60px -20px color-mix(in oklab, var(--aubergine) 40%, transparent),
+              0 0 0 1px color-mix(in oklab, var(--gold) 30%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ken-burns,
+  .animate-sparkle,
+  .animate-blob-drift,
+  .animate-blob-drift-slow,
+  .animate-pulse-glow { animation: none; }
+}
